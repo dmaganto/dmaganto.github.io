@@ -30,7 +30,7 @@ dependencies:
 
 In addition this tool use answer file called `cookiecutter.json` to setup the default value for each value in the templates. We can take advantage of this file to setup default configuration for our environments like:
 
-{% highlight jinja %}
+{% highlight json %}
 {
     "tenant": "tenantName",
     "service": "serviceName",
@@ -68,7 +68,7 @@ Now let's use Github Actions to create a selfservice process in which the users 
 
 First let create the user input interface, the parameters and configure as manual triggered pipeline:
 
-{% endhighlight yaml %}
+{% highlight yaml %}
 name: Create new service or tenant
 run-name: ${{ github.actor }} is creating new service or tenant 🚀
 on:
@@ -91,22 +91,22 @@ on:
 
 And now, we use these parameters in the workflow execution and automatize the process. 
 
-{% endhighlight yaml %}
+{% highlight yaml %}
 jobs:
     scaffolding:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v4
         - run: |
-            echo "Building ${{ inputs.serviceName }} on ${{ inputs.tenant }}"
+            echo "Building {% raw %}${{ inputs.serviceName }}{% endraw %} on {% raw %}${{ inputs.tenant }}{% endraw %}"
             python3 -m pip install --user cookiecutter
-            python3 -m cookiecutter -s -f --no-input ${{ github.workspace }}/_template tenant=${{ inputs.tenant }} service=${{ inputs.serviceName }}
+            python3 -m cookiecutter -s -f --no-input {% raw %}${{ github.workspace }}{% endraw %}/_template tenant={% raw %}${{ inputs.tenant }}{% endraw %} service={% raw %}${{ inputs.serviceName }}{% endraw %}
         - name: Create Pull Request
           uses: peter-evans/create-pull-request@v6
           with:
-            token: ${{ secrets.TOKEN }}
-            title: "Adding service ${{ inputs.serviceName }} to ${{ inputs.tenant }}"
-            branch: feat/add-${{ inputs.serviceName }}
+            token: {% raw %}${{ secrets.TOKEN }}{% endraw %}
+            title: "Adding service {% raw %}${{ inputs.serviceName }}{% endraw %} to {% raw %}${{ inputs.tenant }}{% endraw %}"
+            branch: feat/add-{% raw %}${{ inputs.serviceName }}{% endraw %}
 {% endhighlight %}
 
 We can create a `CODEOWNERS` file set up the PR's approvers for each tenant. [Here more information.](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
