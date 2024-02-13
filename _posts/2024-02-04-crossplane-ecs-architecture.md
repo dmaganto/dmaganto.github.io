@@ -10,7 +10,7 @@ tags:
   - Architecture
 ---
 
-This is an example about how to create ECS infrastructure using Crossplane. It creates a Cluster, Service and TaskDefinition resources for simplicity. The goal is to show how to use Crossplane to provision infrastructure and deploy workloads using helm charts on top of Crossplane compositions.
+This is an example of how to create ECS infrastructure using Crossplane. It generates Cluster, Service, and TaskDefinition resources for simplicity. The objective is to demonstrate how to leverage Crossplane for provisioning infrastructure and deploying workloads using Helm charts atop Crossplane compositions.
 
 ## Architecture
 
@@ -18,7 +18,7 @@ This is an example about how to create ECS infrastructure using Crossplane. It c
 
 ## Crossplane
 
-Crossplane is a tool for provisioning and managing infrastructure on cloud providers. It uses Kubernetes Custom Resource Definitions (CRDs) to define the infrastructure resources and their configuration.
+Crossplane is a tool designed for provisioning and managing infrastructure across various cloud providers. It utilizes Kubernetes Custom Resource Definitions (CRDs) to specify infrastructure resources and their configurations.
 
 ![ECS Architecture](/assets/diagrams/crossplane_arch.png)
 

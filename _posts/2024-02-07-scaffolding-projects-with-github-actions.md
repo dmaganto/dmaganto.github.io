@@ -1,5 +1,5 @@
 ---
-title: "Using Github Actions to scaffolding repositories"
+title: "Using Github Actions to scaffold repositories"
 date: 2024-02-10T21:00:00+01:00
 categories:
   - Blog
@@ -10,7 +10,7 @@ tags:
   - Automation
 ---
 
-Usually in many projects we need to create different respositories with similar folder structure. In this case you can use Github Templates that I will dedicate another post in the blog. In this post I'd like to talk about how to use Github Actions to scaffolding monorepo repositories using CookieCutter in a selfservice way.
+Usually, in many projects, we need to create different repositories with a similar folder structure. In this scenario, you can use GitHub Templates, which I will cover in another blog post. For now, in this post, I'd like to discuss how to use GitHub Actions to scaffold monorepo repositories using CookieCutter in a self-service manner.
 
 ## CookieCutter
 CookieCutter is a tool that help us creating templates using Jinja2 as templating language. Some examples are:
@@ -28,7 +28,7 @@ dependencies:
     repository: "oci://my-ecr-repo/helm-charts"
 {% endhighlight %}
 
-In addition this tool use answer file called `cookiecutter.json` to setup the default value for each value in the templates. We can take advantage of this file to setup default configuration for our environments like:
+In addition, this tool uses an answer file called cookiecutter.json to set up the default values for each variable in the templates. We can take advantage of this file to configure default settings for our environments, such as:
 
 {% highlight json %}
 {
@@ -52,7 +52,7 @@ In addition this tool use answer file called `cookiecutter.json` to setup the de
 }
 {% endhighlight %}
 
-Later, running the following command we can create the template. Notice that we are passing the `tenant` and `service` in the command and the `--no-input` to don't prompt for values and only use the `cookiecutter.json` responses.
+Later, by running the following command, we can create the template. Please note that we are passing the tenant and service as parameters in the command and using --no-input to avoid prompting for values, relying solely on the responses from the cookiecutter.json file.
 
 {% highlight terminal %}
 cookiecutter -s -f --no-input _template tenant=tenant1 service=myservice1
@@ -64,9 +64,9 @@ You can find more information about it in the [official documentation](https://c
 
 ## Github Actions
 
-Now let's use Github Actions to create a selfservice process in which the users can create automatically a PR with their requirements for new tenant or services.
+Now, let's use GitHub Actions to establish a self-service process, allowing users to automatically create a pull request with their requirements for new tenants or services.
 
-First let create the user input interface, the parameters and configure as manual triggered pipeline:
+First, let's create the user input interface, define the parameters, and configure it as a manually triggered pipeline:
 
 {% highlight yaml %}
 name: Create new service or tenant
